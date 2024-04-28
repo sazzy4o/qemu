@@ -1,0 +1,29 @@
+name: Release Workflow
+on: [create]
+
+env:
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  release:
+    if: github.event_name == 'create' && github.event.ref_type == 'tag'
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install configure
+        run: ./configure CFLAGS="-static -O3" --prefix=$PWD/out
+      - name: Build
+        run: make LDFLAGS="--static -O3" && make install
+      - name: Test out
+        run: ls out
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "out/bin/*"
+          tag: ${{ github.ref }}
+          name: ${{ github.ref }}
+          draft: true
