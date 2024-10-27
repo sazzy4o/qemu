@@ -17,9 +17,9 @@ jobs:
       - name: Install deps
         run: sudo apt-get install -y ninja-build
       - name: Configure
-        run: ./configure --static --prefix=$PWD/out
+        run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out
       - name: Build
-        run: make -j 4 && make install
+        run: make -j 4 && make install qemu-img
       - name: Test out
         run: ls out
       - name: Create release
