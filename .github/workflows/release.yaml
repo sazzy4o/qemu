@@ -17,7 +17,7 @@ jobs:
       - name: Install deps
         run: sudo apt-get install -y ninja-build
       - name: Configure
-        run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out
+        run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out --disable-gio
       - name: Build
         run: make -j 4 qemu-img && make install
       - name: Test out
