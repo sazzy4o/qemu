@@ -20,8 +20,8 @@ jobs:
         run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out --disable-gio
       - name: Build
         run: make -j 4 qemu-img
-      - name: Test out
-        run: ls out
+      - name: Test build
+        run: ls build
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
