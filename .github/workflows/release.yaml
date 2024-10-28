@@ -19,13 +19,13 @@ jobs:
       - name: Configure
         run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out --disable-gio
       - name: Build
-        run: make -j 4 qemu-img && make install
+        run: make -j 4 qemu-img
       - name: Test out
         run: ls out
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "out/bin/*"
+          artifacts: "build/qemu-img"
           tag: ${{ github.ref }}
           name: ${{ github.ref }}
           draft: true
