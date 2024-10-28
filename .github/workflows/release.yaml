@@ -19,7 +19,7 @@ jobs:
       - name: Configure
         run: ./configure --static  CFLAGS="-static -O3" --prefix=$PWD/out
       - name: Build
-        run: make -j 4 && make install qemu-img
+        run: make -j 4 qemu-img && make install
       - name: Test out
         run: ls out
       - name: Create release
